@@ -48,3 +48,39 @@ function _cny_map_unit($list, $units) {
 	}
 	return $xs;
 }
+
+//银行卡前几位确定银行名称
+function get_bank_name(){
+    $card = $this->input->post('card');
+	
+	//load banks, banks.php
+    $this->config->load('banks');
+    $bankList = $this->config->item('bankList');
+
+    $card_8 = substr($card, 0, 8);
+    if (isset($bankList[$card_8])) {
+        list($bank) = explode('-', $bankList[$card_8]);
+        echo $bank;
+        return;
+    }
+    $card_6 = substr($card, 0, 6);
+    if (isset($bankList[$card_6])) {
+        list($bank) = explode('-', $bankList[$card_6]);
+        echo $bank;
+        return;
+    }
+    $card_5 = substr($card, 0, 5);
+    if (isset($bankList[$card_5])) {
+        list($bank) = explode('-', $bankList[$card_5]);
+        echo $bank;
+        return;
+    }
+    $card_4 = substr($card, 0, 4);
+    if (isset($bankList[$card_4])) {
+        list($bank) = explode('-', $bankList[$card_4]);
+        echo $bank;
+        return;
+    }
+
+    echo 'not found';
+}
